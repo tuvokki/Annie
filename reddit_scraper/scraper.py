@@ -8,9 +8,9 @@ import csv
 
 corpus = dict()
 output_file= 'conglomerate.csv'
-posts_limit= 1000
+posts_limit= 100
 
-with open('../config/config.json') as json_data_file:
+with open('../config.json') as json_data_file:
     data = json.load(json_data_file)['details']
 
 reddit = praw.Reddit(client_id=data['client_id'], \
@@ -29,7 +29,8 @@ topics_dict = { "title":[], \
 data_dict = { "context":[], \
                 "text response":[]}
 
-subreddit_list = [reddit.subreddit('depression'), reddit.subreddit('anxiety'), reddit.subreddit('stress'), reddit.subreddit('CasualConversation'), reddit.subreddit('AnxietyDepression')]
+# subreddit_list = [reddit.subreddit('depression'), reddit.subreddit('anxiety'), reddit.subreddit('stress'), reddit.subreddit('CasualConversation'), reddit.subreddit('AnxietyDepression')]
+subreddit_list = [reddit.subreddit('stories'), reddit.subreddit('funny')]
 top_subreddit_list=[]
 for i in subreddit_list:
     top_subreddit_list.append(i.top(limit=posts_limit))
@@ -46,5 +47,4 @@ with open('../corpora/%s' % output_file, mode='w') as csv_file:
                 if isinstance(top_level_comment, MoreComments):
                     continue
                 writer.writerow({'context': submission.title, 'text response': top_level_comment.body})
-
-
+                print(f'Written post with title: {submission.title}. ')

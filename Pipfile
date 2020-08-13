@@ -9,6 +9,7 @@ verify_ssl = true
 pandas = "*"
 nltk = "*"
 scikit-learn = "*"
+praw = "*"
 
 [requires]
 python_version = "3.7"
